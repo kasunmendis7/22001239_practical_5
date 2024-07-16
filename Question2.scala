@@ -14,7 +14,9 @@ object Question2 {
       println("3. Check if a book exists by entering ISBN")
       println("4. Display all books by a specific author")
       println("5. Display all available books")
-      println("6. Exit")
+      println("6. Search a book by title")
+      println("7. Exit")
+      print("Enter your choice : ")
       val choice = scala.io.StdIn.readInt()
       choice match {
         case 1 => addNewBook()
@@ -22,7 +24,8 @@ object Question2 {
         case 3 => checkByISBN()
         case 4 => displayAuthorBooks()
         case 5 => displayBooks()
-        case 6 =>
+        case 6 => searchByTitle()
+        case 7 =>
           println("System exiting")
           System.exit(0)
         case _ =>
@@ -90,5 +93,17 @@ object Question2 {
     println("All available books:")
     books.foreach(book => println(s"Title: ${book.title}, Author: ${book.author}, ISBN: ${book.isbn}"))
   }
-}
 
+  def searchByTitle(): Unit = {
+    print("Enter the title of the Book to search: ")
+    val title = scala.io.StdIn.readLine()
+
+    val foundBooks = books.filter(book => book.title.equalsIgnoreCase(title))
+    if (foundBooks.nonEmpty) {
+      println(s"Books with title '$title':")
+      foundBooks.foreach(book => println(s"Author: ${book.author}, ISBN: ${book.isbn}"))
+    } else {
+      println(s"No books found with title '$title'.")
+    }
+  }
+}
